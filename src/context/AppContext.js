@@ -30,6 +30,25 @@ export const AppReducer = (state, action) => {
                     ...state
                 }
             }
+
+            case 'SUB_EXPENSE':
+                action.type = "DONE";
+                state.expenses.map((currentExp)=> {
+                    if(currentExp.name === action.payload.name) {
+                        if(currentExp.cost > 0) {
+                            currentExp.cost =  currentExp.cost - action.payload.cost;
+                        } else {
+                            alert("Cannot decrease the allocation below 0");
+                        }
+                    }
+                    return currentExp
+                });
+                return {
+                    ...state,
+                };
+    
+
+
             case 'RED_EXPENSE':
                 const red_expenses = state.expenses.map((currentExp)=> {
                     if (currentExp.name === action.payload.name && currentExp.cost - action.payload.cost >= 0) {
